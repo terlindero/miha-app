@@ -1,38 +1,49 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Context as WeightContext} from '../context/WeightContext';
+import { Context as BottleContext} from '../context/BottleContext';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-
-const WeightInput = ({ navigation}) => {
-	const { state, createWeight } = useContext(WeightContext);
-	const [newweight, setWeight] = useState('');
+const BottleInput = ({ navigation}) => {
+	const { state, createBottle } = useContext(BottleContext);
+	const [quantity, setQuantity] = useState('');
+	const [time, setTime] = useState('');
 	const [date, setDate] = useState('');
 	
 	return <KeyboardAwareScrollView resetScrollToCoords={{ x:0, y:0}} contentContainerStyle = {styles.container}>
-	<TouchableOpacity onPress = {() => navigation.navigate('HomeScreen')}
+	<TouchableOpacity onPress = {() => navigation.navigate('FoodInput')}
 	style = {styles.backBtn}>
 	<Ionicons name ='md-arrow-round-back' size = {25} color = '#335e90' style={{marginRight: 10, marginLeft: 10}}/>
 	<Text style = {styles.backText}>BACK</Text>
 	</TouchableOpacity>
-	
-	<Text style = {styles.logo}>Log a New Weight</Text>
-	<Text style = {styles.extraInfo}>What is your childs most recent weight?</Text>
+	<Text style = {styles.logo}>Log New Feeding Data</Text>
+	<Text style = {styles.extraInfo}>If your child drinks formula, approximately how much formula do they drink?</Text>
 	
 	<View style = {styles.inputView}>
 	<TextInput 
-		placeholder = "Weight (lbs)"
+		placeholder = "Quantity (oz)"
 		placeholderTextColor = "#c3c3c3"
 		style = {styles.inputText}
-		value = {newweight}
-		onChangeText = {setWeight}
+		value = {quantity}
+		onChangeText = {setQuantity}
 		autoCapitalize = "none"
 		autoCorrect = {false}/>
 	</View>
 	
+	<Text style = {styles.extraInfo}>If your child drinks breast milk, how long do they approximately drink for?</Text>
 	
-	<Text style = {styles.extraInfo}>When was this weight taken?</Text>
+	<View style = {styles.inputView}>
+	<TextInput 
+		placeholder = "Time (minutes)"
+		placeholderTextColor = "#c3c3c3"
+		style = {styles.inputText}
+		value = {time}
+		onChangeText = {setTime}
+		autoCapitalize = "none"
+		autoCorrect = {false}/>
+	</View>
+	
+	<Text style = {styles.extraInfo}>When was this data taken?</Text>
 	<View style = {styles.inputView}>
 	<TextInput 
 		placeholder = "MM/DD/YY"
@@ -43,11 +54,12 @@ const WeightInput = ({ navigation}) => {
 		autoCapitalize = "none"
 		autoCorrect = {false}/>
 	</View>
-	<TouchableOpacity onPress = {() => createWeight({ newweight, date})} style = {styles.loginBtn}>
-	<Text style = {styles.loginText}>Save New Weight</Text>
-	</TouchableOpacity>
 	
-	{state.errorMessage ? <Text style = {styles.errorMessage}>{state.errorMessage}</Text> : null}
+	
+	<TouchableOpacity onPress = {() => createBottle({ quantity, time, date})}
+	style = {styles.loginBtn}>
+	<Text style = {styles.loginText}>Log Data</Text>
+	</TouchableOpacity>
 	</KeyboardAwareScrollView>
 
 	
@@ -79,7 +91,9 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		color: '#335e90',
 		marginBottom: 25,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		marginLeft: 15,
+		marginRight: 15
 	},
 	exInfo: {
 		fontSize: 17,
@@ -142,4 +156,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default WeightInput;
+export default BottleInput;

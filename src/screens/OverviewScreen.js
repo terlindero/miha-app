@@ -1,47 +1,53 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
+
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import {Foundation} from '@expo/vector-icons';
 
-const HomeScreen = props => {
+const OverviewScreen = ({ navigation}) => {
 	return <View style = {styles.container}>
 	<View style = {styles.rowContainer}>
-	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('Begin')}
-	style = {styles.newTest}>
-	<FontAwesome name='stethoscope' size = {100} color = 'white' />
-	<MaterialIcons name='add' size= {25} color = 'white'/>
+	<TouchableOpacity onPress = {() => navigation.navigate('OverviewScreen')}
+	style = {styles.backBtn}>
+	<Text style = {styles.backText}>OVERVIEW</Text>
 	</TouchableOpacity>
+	<TouchableOpacity onPress = {() => navigation.navigate('GraphScreen')}
+	style = {styles.backBtn}>
+	<Text style = {styles.backText}>GRAPHS</Text>
+	</TouchableOpacity>
+	</View>
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('WeightInput')}
+	<View style = {styles.overviewContainer}>
+	<TouchableOpacity onPress = {() => navigation.navigate('WeightOverview')}
 	style = {styles.updateWeight}>
 	<MaterialCommunityIcons name ='scale-bathroom' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}}/>
-	<Text style = {styles.buttonText}> Weight </Text>
+	<Text style = {styles.buttonText}> Weight History</Text>
 	</TouchableOpacity>
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('SleepInput')}
+	<TouchableOpacity onPress = {() => navigation.navigate('SleepOverview')}
 	style = {styles.updateSleep}>
 	<MaterialCommunityIcons name ='sleep' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}}/>
-	<Text style = {styles.buttonText}> Sleep </Text>
+	<Text style = {styles.buttonText}> Sleep History</Text>
 	</TouchableOpacity>
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('FoodInput')}
+	<TouchableOpacity onPress = {() => navigation.navigate('FoodOverview')}
 	style = {styles.updateFeeding}>
 	<MaterialCommunityIcons name ='baby-bottle' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}}/>
-	<Text style = {styles.buttonText}> Feeding </Text>
+	<Text style = {styles.buttonText}> Feeding History</Text>
 	</TouchableOpacity>
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('PoopInput')}
+	<TouchableOpacity onPress = {() => navigation.navigate('PoopOverview')}
 	style = {styles.updateGrowth}>
 	<FontAwesome5 name ='toilet-paper' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}} />
-	<Text style = {styles.buttonText}> Diaper </Text>
+	<Text style = {styles.buttonText}> Diaper History</Text>
 	</TouchableOpacity>
+	</View>
+	</View>
 	
-	</View>
-	</View>
 	
 };
 
@@ -53,12 +59,17 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ffffff'
 	},
 	rowContainer: {
+		flexDirection: 'row',
+		position: 'absolute',
+		top: 60,
+		justifyContent: 'center'
+	},
+	overviewContainer: {
 		flexDirection: 'column',
 		position: 'absolute',
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderColor: '#fff',
-		//borderWidth: 1,
 		backgroundColor: 'white'
 	},
 	navigationBar: {
@@ -102,7 +113,6 @@ const styles = StyleSheet.create({
 		//justifyContent: "center",
 		paddingVertical: 15,
 		paddingHorizontal: 10,
-		marginTop: 30,
 		flexDirection: "row"
 	},
 	updateSleep: {
@@ -148,8 +158,24 @@ const styles = StyleSheet.create({
 		color: 'black',
 		fontWeight: 'bold',
 		fontSize: 25
+	},
+	backText: {
+		color: '#335e90',
+		fontWeight: 'bold'
+	},
+	backBtn: {
+		width: '30%',
+		backgroundColor: 'white',
+		borderRadius: 20,
+		height:50,
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop:20,
+		marginBottom:20,
+		marginRight: 50,
+		marginLeft: 50
 	}
 		
 });
 
-export default HomeScreen;
+export default OverviewScreen;

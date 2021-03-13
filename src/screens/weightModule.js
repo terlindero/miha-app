@@ -1,54 +1,32 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Context as WeightContext} from '../context/WeightContext';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-
-const WeightInput = ({ navigation}) => {
-	const { state, createWeight } = useContext(WeightContext);
-	const [newweight, setWeight] = useState('');
-	const [date, setDate] = useState('');
-	
-	return <KeyboardAwareScrollView resetScrollToCoords={{ x:0, y:0}} contentContainerStyle = {styles.container}>
-	<TouchableOpacity onPress = {() => navigation.navigate('HomeScreen')}
+const WeightModule = ({ navigation}) => {
+	return <View style = {styles.container}>
+	<TouchableOpacity onPress = {() => navigation.navigate('ModuleScreen')}
 	style = {styles.backBtn}>
 	<Ionicons name ='md-arrow-round-back' size = {25} color = '#335e90' style={{marginRight: 10, marginLeft: 10}}/>
 	<Text style = {styles.backText}>BACK</Text>
 	</TouchableOpacity>
+	<Text style = {styles.logo}>How do I weight my Baby at Home?</Text>
+	<Text style = {styles.extraInfo}>In the first years of your child's life, weight is one of the most important indicators of health.
+	An infants weight can give a lot of information about their growth, hydration, and more!</Text>
 	
-	<Text style = {styles.logo}>Log a New Weight</Text>
-	<Text style = {styles.extraInfo}>What is your childs most recent weight?</Text>
+	<Text style = {styles.extraInfo}>Althought your pediatrician will weigh your child at each appoinment, MIHA encourages you to
+	weigh them at home. This will allow us and your doctor to better understand your child and what is abnormal for them.</Text>
 	
-	<View style = {styles.inputView}>
-	<TextInput 
-		placeholder = "Weight (lbs)"
-		placeholderTextColor = "#c3c3c3"
-		style = {styles.inputText}
-		value = {newweight}
-		onChangeText = {setWeight}
-		autoCapitalize = "none"
-		autoCorrect = {false}/>
+	<Text style = {styles.extraInfo}>Even though most parents dont have a special scale to weigh their child at home, there are plenty 
+	of ways to get a weight using a bathroom scale!</Text>
+	
+	<Text style = {styles.extraInfo}>To weigh your baby on a bathroom scale you should first weigh yourself. Once you have your weight,
+	you can weigh yourself holding your baby. Subtract your weight from the weight of you and the baby and you will have the baby's weight! 
+	Make sure to input this new weight into the MIHA app for tracking!
+	</Text>
+	
+	
 	</View>
-	
-	
-	<Text style = {styles.extraInfo}>When was this weight taken?</Text>
-	<View style = {styles.inputView}>
-	<TextInput 
-		placeholder = "MM/DD/YY"
-		placeholderTextColor = "#c3c3c3"
-		style = {styles.inputText}
-		value = {date}
-		onChangeText = {setDate}
-		autoCapitalize = "none"
-		autoCorrect = {false}/>
-	</View>
-	<TouchableOpacity onPress = {() => createWeight({ newweight, date})} style = {styles.loginBtn}>
-	<Text style = {styles.loginText}>Save New Weight</Text>
-	</TouchableOpacity>
-	
-	{state.errorMessage ? <Text style = {styles.errorMessage}>{state.errorMessage}</Text> : null}
-	</KeyboardAwareScrollView>
+
 
 	
 };
@@ -79,7 +57,9 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		color: '#335e90',
 		marginBottom: 25,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		marginLeft: 6,
+		marginRight: 6
 	},
 	exInfo: {
 		fontSize: 17,
@@ -142,4 +122,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default WeightInput;
+export default WeightModule;

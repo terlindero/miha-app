@@ -1,64 +1,78 @@
-import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons} from '@expo/vector-icons';
-import {Foundation} from '@expo/vector-icons';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
+import { ListItem } from 'react-native-elements';
+import { Context as WeightContext } from '../context/WeightContext';
 
-const HomeScreen = props => {
-	return <View style = {styles.container}>
-	<View style = {styles.rowContainer}>
+const WeightOverview = ({ navigation}) => {
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('Begin')}
-	style = {styles.newTest}>
-	<FontAwesome name='stethoscope' size = {100} color = 'white' />
-	<MaterialIcons name='add' size= {25} color = 'white'/>
-	</TouchableOpacity>
+	const { state, fetchWeight } = useContext(WeightContext);
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('WeightInput')}
-	style = {styles.updateWeight}>
-	<MaterialCommunityIcons name ='scale-bathroom' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}}/>
-	<Text style = {styles.buttonText}> Weight </Text>
-	</TouchableOpacity>
-	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('SleepInput')}
-	style = {styles.updateSleep}>
-	<MaterialCommunityIcons name ='sleep' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}}/>
-	<Text style = {styles.buttonText}> Sleep </Text>
-	</TouchableOpacity>
-	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('FoodInput')}
-	style = {styles.updateFeeding}>
-	<MaterialCommunityIcons name ='baby-bottle' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}}/>
-	<Text style = {styles.buttonText}> Feeding </Text>
-	</TouchableOpacity>
-	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('PoopInput')}
-	style = {styles.updateGrowth}>
-	<FontAwesome5 name ='toilet-paper' size = {40} color = 'black' style={{marginRight: 18, marginLeft: 15}} />
-	<Text style = {styles.buttonText}> Diaper </Text>
-	</TouchableOpacity>
-	
-	</View>
-	</View>
-	
+return (
+	<>
+		<NavigationEvents onWillFocus = {fetchWeight} />
+		<View style = {styles.container}>
+		
+		<Text style = {styles.logo}>Previous Weights</Text>
+		</View>
+		<FlatList 
+			style = {{ flex: 1, backgroundColor: 'white'}}
+			data = {state}
+			keyExtractor = {item => item._id}
+			renderItem = {({ item }) => {
+				return (
+					<>
+					<ListItem bottomDivider>
+					<ListItem.Content>
+					<ListItem.Title>
+						<Text style = {styles.dateText}> {item.date} </Text>
+					</ListItem.Title>
+					</ListItem.Content>
+					</ListItem>
+						
+					<ListItem bottomDivider>
+					<ListItem.Content>
+					<ListItem.Title>
+						<Text>     </Text>
+						<Text style = {styles.detailsText}> {item.newweight} </Text>
+						<Text style = {styles.detailsText}> LBS </Text>
+					</ListItem.Title>
+					</ListItem.Content>
+					</ListItem>
+					</>
+					);
+			}}
+			/>
+			</>
+			
+);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		flex:1,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#ffffff'
 	},
 	rowContainer: {
+		flexDirection: 'row',
+		position: 'absolute',
+		top: 60,
+		justifyContent: 'center'
+	},
+	logo: {
+		fontSize: 25,
+		color: '#335e90',
+		marginBottom: 40,
+		fontWeight: 'bold',
+		marginTop: 100
+	},
+	overviewContainer: {
 		flexDirection: 'column',
 		position: 'absolute',
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderColor: '#fff',
-		//borderWidth: 1,
 		backgroundColor: 'white'
 	},
 	navigationBar: {
@@ -102,7 +116,6 @@ const styles = StyleSheet.create({
 		//justifyContent: "center",
 		paddingVertical: 15,
 		paddingHorizontal: 10,
-		marginTop: 30,
 		flexDirection: "row"
 	},
 	updateSleep: {
@@ -148,8 +161,32 @@ const styles = StyleSheet.create({
 		color: 'black',
 		fontWeight: 'bold',
 		fontSize: 25
+	},
+	dateText: {
+		color: '#335e90',
+		fontWeight: 'bold'
+	},
+	detailsText: {
+		color: '#335e90',
+		fontWeight: "500"
+	},
+	backText: {
+		color: '#335e90',
+		fontWeight: 'bold'
+	},
+	backBtn: {
+		width: '30%',
+		backgroundColor: 'white',
+		borderRadius: 20,
+		height:50,
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop:20,
+		marginBottom:20,
+		marginRight: 50,
+		marginLeft: 50
 	}
 		
 });
 
-export default HomeScreen;
+export default WeightOverview;

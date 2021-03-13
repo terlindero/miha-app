@@ -1,50 +1,32 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Context as WeightContext} from '../context/WeightContext';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const WeightScreen = ({navigation}) => {
-	const { state, createWeight } = useContext(WeightContext);
-	const [newweight, setWeight] = useState('');
-	const [date, setDate] = useState('');
-	
+
+const TempScreen = props => {
 	return <KeyboardAwareScrollView resetScrollToCoords={{ x:0, y:0}} contentContainerStyle = {styles.container}>
-	<Text style = {styles.logo}>Weight is an important health indicator for your child.</Text>
-	<Text style = {styles.extraInfo}>How much does your child weigh?</Text>
+	<TouchableOpacity onPress = {() => props.navigation.navigate('HomeScreen')}
+	style = {styles.backBtn}>
+	<Ionicons name ='md-arrow-round-back' size = {25} color = '#335e90' style={{marginRight: 10, marginLeft: 10}}/>
+	<Text style = {styles.backText}>BACK</Text>
+	</TouchableOpacity>
+	
+	<Text style = {styles.logo}>First, we're going to take your childs temperature!</Text>
+	<Text style = {styles.extraInfo}>What is your childs most recent weight?</Text>
 	
 	<View style = {styles.inputView}>
 	<TextInput 
 		placeholder = "Weight (lbs)"
 		placeholderTextColor = "#c3c3c3"
-		style = {styles.inputText}
-		value = {newweight}
-		onChangeText = {setWeight}
-		autoCapitalize = "none"
-		autoCorrect = {false}/>
+		style = {styles.inputText}/>
 	</View>
 	
-	<Text style = {styles.extraInfo}>When was this weight taken?</Text>
-	<View style = {styles.inputView}>
-	<TextInput 
-		placeholder = "MM/DD/YY"
-		placeholderTextColor = "#c3c3c3"
-		style = {styles.inputText}
-		value = {date}
-		onChangeText = {setDate}
-		autoCapitalize = "none"
-		autoCorrect = {false}/>
-	</View>
-	
-	<View style = {styles.rowContainer}>
-	<TouchableOpacity onPress = {() => navigation.navigate('Name')}
-	style = {styles.loginBtn}>
-	<Text style = {styles.loginText}>BACK</Text>
+	<TouchableOpacity onPress = {() => props.navigation.navigate('HomeScreen')} style = {styles.loginBtn}>
+	<Text style = {styles.loginText}>Next!</Text>
 	</TouchableOpacity>
-	<TouchableOpacity onPress = {() => createWeight({ newweight, date})}
-	style = {styles.loginBtn}>
-	<Text style = {styles.loginText}>NEXT</Text>
-	</TouchableOpacity>
-	</View>
+
 	</KeyboardAwareScrollView>
 
 	
@@ -58,21 +40,24 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ffffff'
 	},
 	rowContainer: {
-		flexDirection: 'row',
+		flexDirection: 'column',
 		position: 'absolute',
-		bottom: 0,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderColor: '#fff',
+		backgroundColor: 'white'
 	},
 	logo: {
 		fontSize: 25,
 		color: '#335e90',
 		marginBottom: 40,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		marginTop: 100
 	},
 	extraInfo: {
 		fontSize: 17,
 		color: '#335e90',
-		marginBottom: 35,
+		marginBottom: 25,
 		fontWeight: 'bold'
 	},
 	exInfo: {
@@ -98,16 +83,14 @@ const styles = StyleSheet.create({
 	},
 		
 	loginBtn: {
-		width: '30%',
+		width: '80%',
 		backgroundColor: 'rgb(144,212,57)',
 		borderRadius: 20,
 		height:50,
 		alignItems: "center",
 		justifyContent: "center",
 		marginTop:20,
-		marginBottom:20,
-		marginRight: 50,
-		marginLeft: 50
+		marginBottom:20
 	},
 	bottom: {
 		justifyContent: 'flex-end'
@@ -115,7 +98,27 @@ const styles = StyleSheet.create({
 	loginText: {
 		color: 'white',
 		fontWeight: 'bold'
-	}
+	},
+	backText: {
+		color: '#335e90',
+		fontWeight: 'bold'
+	},
+	backBtn: {
+		width: '30%',
+		backgroundColor: 'white',
+		borderRadius: 20,
+		height:50,
+		alignItems: "center",
+		paddingVertical: 5,
+		flexDirection: 'row',
+		marginTop:20,
+		marginBottom:20,
+		marginRight: 50,
+		marginLeft: 50,
+		position: 'absolute',
+		top: 45,
+		left: -30
+	},
 });
 
-export default WeightScreen;
+export default TempScreen;

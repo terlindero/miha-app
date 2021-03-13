@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Foundation } from '@expo/vector-icons';
+import { Context as NameContext} from '../context/NameContext';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-const NameScreen = props => {
+const NameScreen = ({navigation}) => {
+	const { state, createName } = useContext(NameContext);
+	const [childname, setName] = useState('');
+	const [sex, setSex] = useState('');
+	
 	return <View style = {styles.container}>
 	<Text style = {styles.logo}>How should we refer to your child?</Text>
+	
 	<View style = {styles.inputView}>
 	<TextInput 
-	placeholder = " Your Child's First Name"
-	placeholderTextColor = "#c3c3c3"
-	style = {styles.inputText}/>
+		placeholder = " Your Child's First Name"
+		placeholderTextColor = "#c3c3c3"
+		style = {styles.inputText}
+		value = {childname}
+		onChangeText = {setName}
+		autoCorrect = {false}/>
 	</View>
-	<View style = {styles.rowContainer}>
-	<TouchableOpacity style = {styles.genderBtn}>
-	<Foundation name='female-symbol' size={40} color = '#335e90'/>
-	</TouchableOpacity>
-	<TouchableOpacity style = {styles.genderBtn}>
-	<Foundation name='male-symbol' size={40} color = '#335e90'/>
-	</TouchableOpacity>
+	
+	<Text style = {styles.sexlogo}>Please type your child's birth sex</Text>
+	
+	<View style = {styles.inputView}>
+	<TextInput 
+		placeholder = "Female/Male/N/A"
+		placeholderTextColor = "#c3c3c3"
+		style = {styles.inputText}
+		value = {sex}
+		onChangeText = {setSex}
+		autoCorrect = {false}/>
 	</View>
-	<TouchableOpacity onPress = {() => props.navigation.navigate('Age')}
+	
+	<TouchableOpacity onPress = {() => createName({ childname, sex})}
 	style = {styles.loginBtn}>
 	<Text style = {styles.loginText}>NEXT</Text>
 	</TouchableOpacity>
@@ -37,9 +52,15 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ffffff'
 	},
 	rowContainer: {
-		flexDirection: 'row'
+		justifyContent: 'flex-start'
 	},
 	logo: {
+		fontSize: 20,
+		color: '#335e90',
+		marginBottom: 40,
+		fontWeight: 'bold'
+	},
+	sexlogo: {
 		fontSize: 20,
 		color: '#335e90',
 		marginBottom: 40,

@@ -1,31 +1,29 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Context as WeightContext} from '../context/WeightContext';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Ionicons } from '@expo/vector-icons';
 
-
-const FoodInput = ({ navigation}) => {
+const BeginScreen = props => {
 	return <View style = {styles.container}>
-	<TouchableOpacity onPress = {() => navigation.navigate('HomeScreen')}
+	<TouchableOpacity onPress = {() => props.navigation.navigate('Temp')}
 	style = {styles.backBtn}>
 	<Ionicons name ='md-arrow-round-back' size = {25} color = '#335e90' style={{marginRight: 10, marginLeft: 10}}/>
 	<Text style = {styles.backText}>BACK</Text>
 	</TouchableOpacity>
-	<Text style = {styles.logo}>Log New Feeding Data</Text>
-	<Text style = {styles.extraInfo}>Has your child been introduced to solid food?</Text>
-	
-	<TouchableOpacity onPress = {() => navigation.navigate('SolidInput')}
-	style = {styles.loginBtn}>
-	<Text style = {styles.loginText}>YES</Text>
-	</TouchableOpacity>
-	
-	<TouchableOpacity onPress = {() => navigation.navigate('BottleInput')}
-	style = {styles.loginBtn}>
-	<Text style = {styles.loginText}>NO</Text>
-	</TouchableOpacity>
+	<View>
+	<Text style = {styles.logo}>Let's begin a new MIHA test!</Text>
 	</View>
-
+	<TouchableOpacity onPress = {() => props.navigation.navigate('Temp')}
+	style = {styles.loginBtn}>
+	<Text style = {styles.loginText}>LET'S GO!</Text>
+	</TouchableOpacity>
 	
-};
+	</View>	
+	
+	
+}
+
 
 const styles = StyleSheet.create({
 	container: {
@@ -34,37 +32,18 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		backgroundColor: '#ffffff'
 	},
-	rowContainer: {
-		flexDirection: 'column',
-		position: 'absolute',
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderColor: '#fff',
-		backgroundColor: 'white'
-	},
 	logo: {
+		marginTop: 70,
+		fontWeight: 'bold',
 		fontSize: 25,
 		color: '#335e90',
-		marginBottom: 40,
-		fontWeight: 'bold',
-		marginTop: 100
-	},
-	extraInfo: {
-		fontSize: 17,
-		color: '#335e90',
-		marginBottom: 25,
-		fontWeight: 'bold'
-	},
-	exInfo: {
-		fontSize: 17,
-		color: '#335e90',
-		fontWeight: 'bold'
+		marginBottom: 40
 	},
 	inputView: {
 		width: '80%',
 		backgroundColor: '#ffffff',
-		borderRadius:20,
-		borderColor: '#c3c3c3',
+		borderRadius:25,
+		borderColor: '#335e90',
 		borderWidth: 2,
 		height: 50,
 		marginBottom: 20,
@@ -73,10 +52,14 @@ const styles = StyleSheet.create({
 	},
 	inputText: {
 		height: 90,
-		color: 'black',
+		color: '#335e90',
 		fontWeight: 'bold'
 	},
-		
+	forgot: {
+		color: '#969faa',
+		fontSize:14,
+		marginBottom: 17
+	},
 	loginBtn: {
 		width: '80%',
 		backgroundColor: 'rgb(144,212,57)',
@@ -86,9 +69,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		marginTop:20,
 		marginBottom:20
-	},
-	bottom: {
-		justifyContent: 'flex-end'
 	},
 	loginText: {
 		color: 'white',
@@ -116,4 +96,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default FoodInput;
+export default BeginScreen;

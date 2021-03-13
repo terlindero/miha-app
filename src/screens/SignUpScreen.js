@@ -4,13 +4,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Context as AuthContext} from '../context/AuthContext';
 
 const SignUpScreen = ({ navigation}) => {
-	const { state, signup } = useContext(AuthContext);
+	const { state, signup} = useContext(AuthContext);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	
-	
 	return <KeyboardAwareScrollView resetScrollToCoords={{ x:0, y:0}} contentContainerStyle = {styles.container}>
-	<Text style={styles.logo}>Sign Up</Text>
+	<Text style={styles.logo}>First, Sign Up</Text>
 
 	
 	<View style = {styles.inputView}>

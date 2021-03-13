@@ -18,7 +18,7 @@ const LogInScreen = ({ navigation}) => {
 		style = {styles.inputText}
 		value = {email}
 		onChangeText = {setEmail}
-		au toCapitalize = "none"
+		autoCapitalize = "none"
 		autoCorrect = {false}/>
 	</View>
 	

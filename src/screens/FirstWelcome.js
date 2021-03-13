@@ -7,7 +7,7 @@ const FirstWelcome = props => {
 	<Text style = {styles.logo}>Howdy!</Text>
 	<Text style = {styles.logo}>To provide you with the best results, we will need to gather some information from you.</Text>
 	</View>
-	<TouchableOpacity onPress = {() => props.navigation.navigate('Name')} 
+	<TouchableOpacity onPress = {() => props.navigation.navigate('SignUp')} 
 	style = {styles.loginBtn}>
 	<Text style = {styles.loginText}>LET'S GO!</Text>
 	</TouchableOpacity>

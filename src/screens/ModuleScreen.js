@@ -14,7 +14,7 @@ const ModuleScreen = props => {
 	<Text style = {styles.howToText}> How To's </Text>
 	</TouchableOpacity>
 	
-	<TouchableOpacity onPress = {() => props.navigation.navigate('WeightInput')}
+	<TouchableOpacity onPress = {() => props.navigation.navigate('WeightModule')}
 	style = {styles.updateWeight}>
 	<Text style = {styles.buttonText}> How do I weigh my baby at home? </Text>
 	</TouchableOpacity>
